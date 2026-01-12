@@ -1,0 +1,216 @@
+{
+	"info": {
+		"_postman_id": "674513a7-4742-44c2-b350-60b2e785bc4c",
+		"name": "Order Management System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35960393",
+		"_collection_link": "https://abhijeet-team-2701.postman.co/workspace/e2a8cf94-ea2c-4914-8384-c328433cc443/collection/35960393-674513a7-4742-44c2-b350-60b2e785bc4c?action=share&source=collection_link&creator=35960393"
+	},
+	"item": [
+		{
+			"name": "Product Service",
+			"item": [
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n\r\n    // { \"id\": \"102\", \"name\": \"Smartphone\", \"price\": 699.99 }\r\n    // { \"id\": \"103\", \"name\": \"Tablet\", \"price\": 399.99 }\r\n    // { \"id\": \"104\", \"name\": \"Monitor\", \"price\": 199.99 }\r\n    // { \"id\": \"105\", \"name\": \"Keyboard\", \"price\": 49.99 }\r\n    // { \"id\": \"106\", \"name\": \"Mouse\", \"price\": 29.99 }\r\n    // { \"id\": \"107\", \"name\": \"Headphones\", \"price\": 89.99 }\r\n    // { \"id\": \"108\", \"name\": \"Smartwatch\", \"price\": 249.99 }\r\n    // { \"id\": \"109\", \"name\": \"Printer\", \"price\": 149.99 }\r\n    // { \"id\": \"110\", \"name\": \"External Hard Drive\", \"price\": 79.99 }\r\n    { \"id\": 111, \"name\": \"Touch Pad\", \"price\": 89.99 }\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/products/111",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"products",
+								"111"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Inventory Service",
+			"item": [
+				{
+					"name": "Create Inventory",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"productId\": 102,\"availableQuantity\": 90 } ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/inventory",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"inventory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Inventory By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/inventory/102",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"inventory",
+								"102"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reserve Inventory",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/inventory/102/reserve?quantity=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"inventory",
+								"102",
+								"reserve"
+							],
+							"query": [
+								{
+									"key": "quantity",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order Service",
+			"item": [
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 101,\r\n    \"productId\": 101,\r\n    \"quantity\": 1,\r\n    \"status\": \"CREATED\" \r\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/orders/101",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"orders",
+								"101"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -23,10 +23,13 @@ public class InventoryServiceImpl implements InventoryService{
         return inventoryRepository.save(inventory);
     }
 
+
+
     @Override
     public Inventory getInventoryById(Long productId) {
+
         return inventoryRepository.findById(productId).orElseThrow(
-                () -> new ResourceNotFoundException("Product with id "+ productId + " not found")
+                () -> new ResourceNotFoundException("Product with productId "+ productId + " not found")
         );
     }
 
@@ -36,7 +39,7 @@ public class InventoryServiceImpl implements InventoryService{
 
         Inventory inventory = inventoryRepository.findById(productId)
                         .orElseThrow(()->
-                                new ResourceNotFoundException("Product with id "+ productId + " not found"));
+                                new ResourceNotFoundException("Product with productId "+ productId + " not found"));
 
         log.info("Reservation attempt for product {}", productId);
 

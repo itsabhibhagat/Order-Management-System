@@ -1,0 +1,108 @@
+version: "3.9"
+
+services:
+
+  # Product Service DB
+  product-mysql:
+    image: mysql:8.0
+    container_name: product-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: FAmi12@#
+      MYSQL_DATABASE: productdb
+    ports:
+      - "3307:3306"
+    volumes:
+      - product-mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-ppassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Product Service
+  product-service:
+    build: ./product-service
+    container_name: product-service
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://product-mysql:3306/productdb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: FAmi12@#
+    depends_on:
+      product-mysql:
+        condition: service_healthy
+
+  # Inventory Service DB
+  inventory-mysql:
+    image: mysql:8.0
+    container_name: inventory-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: FAmi12@#
+      MYSQL_DATABASE: inventorydb
+    ports:
+      - "3308:3306"
+    volumes:
+      - inventory-mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-ppassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Inventory Service
+  inventory-service:
+    build: ./inventory-service
+    container_name: inventory-service
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://inventory-mysql:3306/inventorydb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: FAmi12@#
+    depends_on:
+      inventory-mysql:
+        condition: service_healthy
+
+  # Order Service DB
+  order-mysql:
+    image: mysql:8.0
+    container_name: order-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: FAmi12@#
+      MYSQL_DATABASE: orderdb
+    ports:
+      - "3309:3306"
+    volumes:
+      - order-mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-ppassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Order Service
+  order-service:
+    build: ./order-service
+    container_name: order-service
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://order-mysql:3306/orderdb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: FAmi12@#
+
+      PRODUCT_SERVICE_URL: http://product-service:8081
+      INVENTORY_SERVICE_URL: http://inventory-service:8082
+    depends_on:
+      order-mysql:
+        condition: service_healthy
+      product-service:
+        condition: service_started
+      inventory-service:
+        condition: service_started
+
+volumes:
+  product-mysql-data:
+  inventory-mysql-data:
+  order-mysql-data:

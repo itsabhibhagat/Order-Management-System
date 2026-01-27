@@ -1,10 +1,10 @@
 server:
-  port: 8082
+  port: 8081
 spring:
   application:
-    name: inventory-service
+    name: product-service
   datasource:
-    url: jdbc:mysql://localhost:3306/inventory-service?createDatabaseIfNotExist=true
+    url: jdbc:mysql://product-mysql:3306/productdb?createDatabaseIfNotExist=true
     username: root
     password: FAmi12@#
     driver-class-name: com.mysql.cj.jdbc.Driver

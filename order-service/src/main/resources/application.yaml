@@ -1,10 +1,10 @@
 server:
-  port: 8081
+  port: 8083
 spring:
   application:
-    name: product-service
+    name: order-service
   datasource:
-    url: jdbc:mysql://localhost:3306/product-service?createDatabaseIfNotExist=true
+    url: jdbc:mysql://order-mysql:3306/orderdb?createDatabaseIfNotExist=true
     username: root
     password: FAmi12@#
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -13,3 +13,10 @@ spring:
       ddl-auto: update
     open-in-view: false
     database-platform: org.hibernate.dialect.MySQLDialect
+
+
+product-service:
+  url: http://localhost:8081
+
+inventory-service:
+  url: http://localhost:8082

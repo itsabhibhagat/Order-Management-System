@@ -1,14 +1,16 @@
 package com.microservice.inventory_service.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.microservice.inventory_service.entity.Inventory;
 import com.microservice.inventory_service.exception.InsufficientStockException;
 import com.microservice.inventory_service.exception.ResourceNotFoundException;
 import com.microservice.inventory_service.repository.InventoryRepository;
+
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
@@ -41,7 +43,7 @@ public class InventoryServiceImpl implements InventoryService{
                         .orElseThrow(()->
                                 new ResourceNotFoundException("Product with productId "+ productId + " not found"));
 
-        log.info("Reservation attempt for product {}", productId);
+        log.info("Reservation attempt for product ", productId);
 
 
         if(inventory.getAvailableQuantity() < quantity){
